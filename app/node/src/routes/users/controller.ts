@@ -65,7 +65,7 @@ usersRouter.get(
     try {
       const users = await getUsers(limit, offset);
       res.status(200).json(users);
-      console.log("successfully get users list");
+      //console.log("successfully get users list");
     } catch (e) {
       next(e);
     }
@@ -80,6 +80,7 @@ usersRouter.get(
     res: express.Response,
     next: express.NextFunction
   ) => {
+    console.time("searchTotal");
     const keyword = req.query.q;
     if (typeof keyword !== "string") {
       if (!keyword) {
@@ -179,6 +180,7 @@ usersRouter.get(
         });
       res.json(users);
       console.log(`successfully searched ${users.length} users`);
+      console.timeEnd("searchTotal");
     } catch (e) {
       next(e);
     }

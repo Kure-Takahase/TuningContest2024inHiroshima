@@ -46,7 +46,7 @@ export const createMatchGroup = async (
         candidate.departmentName
       )
     ) {
-      console.log(`${candidate.userId} is not passed department filter`);
+      //console.log(`${candidate.userId} is not passed department filter`);
       continue;
     } else if (
       matchGroupConfig.officeFilter !== "none" &&
