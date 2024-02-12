@@ -240,7 +240,7 @@ export const getUserForFilter = async (
 ): Promise<UserForFilter> => {
   let userRows: RowDataPacket[];
   if (!userId) {
-    [countRes] = await pool.query<RowDataPacket[]>(
+    countRes = await pool.query<RowDataPacket[]>(
       "SELECT COUNT(*) FROM user;"
     );
     console.log("countRes:",countRes)
