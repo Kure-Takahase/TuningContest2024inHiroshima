@@ -33,18 +33,18 @@ matchGroupRouter.post(
       };
       let random = Math.floor(Math.random() * 10000000) + 1;
       var randomStr = random.toString()
-      console.time("membersReqBodyCheck"+"_"+randomStr);
+      console.time("BodyCheck"+"_"+randomStr);
       if (!(await isReqBodyValueCorrect(reqBody, res))) {
         return;
       }
-      console.time("membersReqBodyCheck"+"_"+randomStr);
+      console.timeEnd("BodyCheck"+"_"+randomStr);
       //console.log("specified condition is valid");
 
       //let random = Math.floor(Math.random() * 100000) + 1;
       //var randomStr = random.toString()
-      console.time("membersCreateGroup"+"_"+randomStr);
+      console.time("CreateGroup"+"_"+randomStr);
       const matchGroupDetail = await createMatchGroup(reqBody);
-      console.time("membersCreateGroup"+"_"+randomStr);
+      console.timeEnd("CreateGroup"+"_"+randomStr);
 
       if (!matchGroupDetail) {
         res.status(500).json({
@@ -232,9 +232,9 @@ matchGroupRouter.get(
     try {
       let random = Math.floor(Math.random() * 100000) + 1;
       var randomStr = random.toString()
-      //console.time("membersUserID"+"_"+randomStr);
+      console.time("groupUserID"+"_"+randomStr);
       const user = await getUserByUserId(userId);
-      //console.timeEnd("membersUserID"+"_"+randomStr);
+      console.timeEnd("groupUserID"+"_"+randomStr);
       if (!user) {
         res.status(404).json({
           message: "指定されたユーザーは存在しません。",
@@ -255,8 +255,9 @@ matchGroupRouter.get(
 
       //let random = Math.floor(Math.random() * 100000) + 1;
       //var randomStr = random.toString()
-      //console.time("membersGroupID"+"_"+randomStr);
+      //console.time("groupUserID"+"_"+randomStr);
 
+      console.time("GroupID"+"_"+randomStr);
       var keyStr = "membersMatchGroupID_"+user.userId.toString()
       let matchGroupIds
       const redis = require('redis');
@@ -276,6 +277,7 @@ matchGroupRouter.get(
         matchGroupIds = JSON.parse(value);
       }
       client.disconnect()
+      console.timeEnd("GroupID"+"_"+randomStr);
 
       //console.timeEnd("membersGroupID"+"_"+randomStr);
       //console.log(`user participated in ${matchGroupIds.length} match groups`);
@@ -286,12 +288,12 @@ matchGroupRouter.get(
 
       //let random = Math.floor(Math.random() * 100000) + 1;
       //var randomStr = random.toString()
-      console.time("membersMatchGroups"+"_"+randomStr);
+      console.time("Match"+"_"+randomStr);
       const matchGroups = await getMatchGroupsByMatchGroupIds(
         matchGroupIds,
         status
       );
-      console.timeEnd("membersMatchGroups"+"_"+randomStr);
+      console.timeEnd("Match"+"_"+randomStr);
       if (matchGroups.length === 0) {
         res.json([]);
         //console.log("no valid match groups found");
