@@ -243,6 +243,7 @@ export const getUserForFilter = async (
       "SELECT COUNT(*) FROM user;"
     );
   var countResNum = countRes[0]
+  console.log(countResNum)
   const n = Number(countResNum);
   const randomNumber = Math.floor(Math.random() * (n + 1));
   var randomStr = randomNumber.toString()
