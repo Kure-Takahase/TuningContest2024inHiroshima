@@ -16,6 +16,7 @@ usersRouter.get(
     res: express.Response,
     next: express.NextFunction
   ) => {
+    console.time("userIconIdTotal");
     const userIconId: string = req.params.userIconId;
 
     try {
@@ -41,6 +42,7 @@ usersRouter.get(
     } catch (e) {
       next(e);
     }
+    console.timeEnd("userIconIdTotal");
   }
 );
 
@@ -52,6 +54,7 @@ usersRouter.get(
     res: express.Response,
     next: express.NextFunction
   ) => {
+    console.time("usersTotal");
     let limit = Math.trunc(Number(req.query.limit));
     if (Number.isNaN(limit) || limit < 0 || 100 < limit) {
       limit = 20;
@@ -69,6 +72,7 @@ usersRouter.get(
     } catch (e) {
       next(e);
     }
+    console.timeEnd("usersTotal");
   }
 );
 
@@ -180,10 +184,11 @@ usersRouter.get(
         });
       res.json(users);
       //console.log(`successfully searched ${users.length} users`);
-      console.timeEnd("searchTotal");
+      
     } catch (e) {
       next(e);
     }
+    console.timeEnd("searchTotal");
   }
 );
 
