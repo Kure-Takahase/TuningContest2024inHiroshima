@@ -128,9 +128,24 @@ export const getUsersByUserIds = async (
     else
     {
       var userRows = JSON.parse(result);
+      if (userRows.length === 0) {
+        console.log("跳过！")
+        continue;
+      }
       console.log(userIdkeyStr)
       console.log(result)
       console.log(userRows)
+    }
+    if(userRows == undefined)
+    {
+      if(result == null)
+      {
+        console.log("result is null!")
+      }
+      else
+      {
+        console.log("正常查询出错！")
+      }
     }
     users = users.concat(convertToSearchedUser(userRows));
   }
