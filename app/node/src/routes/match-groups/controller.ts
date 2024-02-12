@@ -256,7 +256,27 @@ matchGroupRouter.get(
       //let random = Math.floor(Math.random() * 100000) + 1;
       //var randomStr = random.toString()
       //console.time("membersGroupID"+"_"+randomStr);
-      const matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
+
+      var keyStr = "membersMatchGroupID_"+user.userId.toString()
+      const redis = require('redis');
+      const client = redis.createClient({
+        url: 'redis://my-redis:6379',
+      });
+      client.connect()
+      const value = await client.get(keyStr);
+      if(value == null)
+      {
+        const matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
+        var jsonStr = JSON.stringify(matchGroupIds);
+        await client.set(keyStr, jsonStr);
+      }
+      else
+      {
+        const matchGroupIds = JSON.parse(value);
+      }
+      client.disconnect()
+
+
       //console.timeEnd("membersGroupID"+"_"+randomStr);
       //console.log(`user participated in ${matchGroupIds.length} match groups`);
       if (matchGroupIds.length === 0) {
