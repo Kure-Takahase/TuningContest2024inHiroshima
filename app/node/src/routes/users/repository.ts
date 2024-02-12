@@ -99,20 +99,13 @@ export const getUsersByUserIds = async (
       if (userRows.length === 0) {
         continue;
       }
-      if(userRows == undefined)
-      {
-        console.log("正常查询出错！1")
-      }
+      
 
       const [officeRows] = await pool.query<RowDataPacket[]>(
         `SELECT office_name FROM office WHERE office_id = ?`,
         [userRows[0].office_id]
       );
-      if(userRows == undefined)
-      {
-        console.log("正常查询出错！2")
-      }
-
+      
       var keyStr = "fileID_"+userRows[0].user_icon_id
       var value = await client.get(keyStr);
       if(value == null)
@@ -130,33 +123,24 @@ export const getUsersByUserIds = async (
       }
       userRows[0].office_name = officeRows[0].office_name;
 
-      if(userRows == undefined)
-      {
-        console.log("正常查询出错！3")
-      }
+      
 
       var jsonStr = JSON.stringify(userRows)
       await client.set(userIdkeyStr,jsonStr);
-      if(userRows == undefined)
-      {
-        console.log("正常查询出错！4")
-      }
+      
       users = users.concat(convertToSearchedUser(userRows));
     }
     else
     {
       const userRows = JSON.parse(result);
       if (userRows.length === 0) {
-        console.log("跳过！")
+        //console.log("跳过！")
         continue;
       }
-      console.log(userIdkeyStr)
-      console.log(result)
-      console.log(userRows)
-      if(userRows == undefined)
-      {
-        console.log("缓存出错！")
-      }
+      //console.log(userIdkeyStr)
+      //console.log(result)
+      //console.log(userRows)
+      
       users = users.concat(convertToSearchedUser(userRows));
     }
     
