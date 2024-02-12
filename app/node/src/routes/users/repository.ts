@@ -99,11 +99,19 @@ export const getUsersByUserIds = async (
       if (userRows.length === 0) {
         continue;
       }
+      if(userRows == undefined)
+      {
+        console.log("正常查询出错！1")
+      }
 
       const [officeRows] = await pool.query<RowDataPacket[]>(
         `SELECT office_name FROM office WHERE office_id = ?`,
         [userRows[0].office_id]
       );
+      if(userRows == undefined)
+      {
+        console.log("正常查询出错！2")
+      }
 
       var keyStr = "fileID_"+userRows[0].user_icon_id
       var value = await client.get(keyStr);
@@ -122,12 +130,21 @@ export const getUsersByUserIds = async (
       }
       userRows[0].office_name = officeRows[0].office_name;
 
+      if(userRows == undefined)
+      {
+        console.log("正常查询出错！3")
+      }
+
       var jsonStr = JSON.stringify(userRows)
       await client.set(userIdkeyStr,jsonStr);
+      if(userRows == undefined)
+      {
+        console.log("正常查询出错！4")
+      }
     }
     else
     {
-      var userRows = JSON.parse(result);
+      const userRows = JSON.parse(result);
       if (userRows.length === 0) {
         console.log("跳过！")
         continue;
@@ -140,11 +157,11 @@ export const getUsersByUserIds = async (
     {
       if(result == null)
       {
-        console.log("result is null!")
+        console.log("正常查询出错！5")
       }
       else
       {
-        console.log("正常查询出错！")
+        console.log("result is not null!")
       }
     }
     users = users.concat(convertToSearchedUser(userRows));
