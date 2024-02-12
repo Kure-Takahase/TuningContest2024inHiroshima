@@ -240,13 +240,13 @@ export const getUserForFilter = async (
 ): Promise<UserForFilter> => {
 
   const [countRes] = await pool.query<RowDataPacket[]>(
-      "SELECT COUNT(*) FROM user;"
+      "SELECT COUNT(*) as count FROM user;"
     );
 
-  const countResObj = JSON.parse(countRes[0]);
-  var countResNum = countResObj[0]
-  console.log(countResObj[0])
-  console.log(countResObj['COUNT(*)'])
+  const countResObj = countRes[0].count
+  var countResNum = countResObj
+  console.log(countResObj)
+  //console.log(countResObj['COUNT(*)'])
   const n = Number(countResNum);
   const randomNumber = Math.floor(Math.random() * (n + 1));
   var randomStr = randomNumber.toString()
