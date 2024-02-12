@@ -106,7 +106,7 @@ export const getUsersByUserIds = async (
       );
 
       var keyStr = "fileID_"+userRows[0].user_icon_id
-      const value = await client.get(keyStr);
+      var value = await client.get(keyStr);
       if(value == null)
       {
         const [fileRows] = await pool.query<RowDataPacket[]>(
@@ -122,12 +122,12 @@ export const getUsersByUserIds = async (
       }
       userRows[0].office_name = officeRows[0].office_name;
 
-      jsonStr = JSON.stringify(userRows)
+      var jsonStr = JSON.stringify(userRows)
       await client.set(userIdkeyStr,jsonStr);
     }
     else
     {
-      var userRows = JSON.parse(value);
+      var userRows = JSON.parse(result);
     }
     users = users.concat(convertToSearchedUser(userRows));
   }
