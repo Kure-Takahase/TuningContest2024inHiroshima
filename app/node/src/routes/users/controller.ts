@@ -48,7 +48,7 @@ usersRouter.get(
         const data = execSync(`convert ${path} -resize 500x500! PNG:-`, {
           shell: "/bin/bash",
         });
-        base64Str = data.toString("base64")
+        var base64Str = data.toString("base64")
         res.status(200).json({
           fileName: userIcon.fileName,
           data: base64Str,
