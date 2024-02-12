@@ -63,8 +63,8 @@ export const getMatchGroupDetailByMatchGroupId = async (
   if (status === "open") {
     query += " AND status = 'open'";
   }
-  let random = Math.floor(Math.random() * 100000) + 1;
-  var randomStr = random.toString()
+  //let random = Math.floor(Math.random() * 100000) + 1;
+  //var randomStr = random.toString()
   //console.time("March_Frist"+"_"+randomStr);
   const [matchGroup] = await pool.query<RowDataPacket[]>(query, [matchGroupId]);
   //console.timeEnd("March_Frist"+"_"+randomStr);
