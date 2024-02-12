@@ -267,7 +267,7 @@ matchGroupRouter.get(
       if(value == null)
       {
         var matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
-        var jsonStr = JSON.stringify(matchGroupIds_a);
+        var jsonStr = JSON.stringify(matchGroupIds);
         await client.set(keyStr, jsonStr);
       }
       else
