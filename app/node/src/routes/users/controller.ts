@@ -22,27 +22,58 @@ usersRouter.get(
     const userIconId: string = req.params.userIconId;
 
     try {
-      console.time("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
-      const userIcon = await getFileByFileId(userIconId);
-      console.timeEnd("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
-      if (!userIcon) {
-        res.status(404).json({
-          message:
-            "指定されたユーザーアイコンIDのユーザーアイコン画像が見つかりません。",
+      var userIconkeyStr = "userIcon_"+userIconId
+      var userIconkeyDataStr = "userIconData_"+userIconId
+      const redis = require('redis');
+      const client = redis.createClient({
+        url: 'redis://my-redis:6379',
+      });
+      client.connect()
+      const value = await client.get(userIconkeyStr);
+      if(value == null)
+      {
+        console.time("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
+        const userIcon = await getFileByFileId(userIconId);
+        console.timeEnd("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
+        if (!userIcon) {
+          res.status(404).json({
+            message:
+              "指定されたユーザーアイコンIDのユーザーアイコン画像が見つかりません。",
+          });
+          console.warn("specified user icon not found");
+          return;
+        }
+        const path = userIcon.path;
+        // 500px x 500pxでリサイズ
+        const data = execSync(`convert ${path} -resize 500x500! PNG:-`, {
+          shell: "/bin/bash",
         });
-        console.warn("specified user icon not found");
-        return;
+        base64Str = data.toString("base64")
+        res.status(200).json({
+          fileName: userIcon.fileName,
+          data: base64Str,
+        });
+        //console.log("successfully get user icon");
+
+
+        var jsonStr = JSON.stringify(userIcon);
+        await client.set(userIconkeyStr, jsonStr);
+        await client.set(userIconkeyDataStr, base64Str);
+
       }
-      const path = userIcon.path;
-      // 500px x 500pxでリサイズ
-      const data = execSync(`convert ${path} -resize 500x500! PNG:-`, {
-        shell: "/bin/bash",
-      });
-      res.status(200).json({
-        fileName: userIcon.fileName,
-        data: data.toString("base64"),
-      });
-      //console.log("successfully get user icon");
+      else
+      {
+        const userIconObj = JSON.parse(value);
+        var data64Str = await client.get(userIconkeyDataStr);
+        res.status(200).json({
+          fileName: userIconObj.fileName,
+          data: data64Str,
+        });
+      }
+      client.disconnect()
+
+
+
     } catch (e) {
       next(e);
     }
@@ -74,7 +105,7 @@ usersRouter.get(
     try {
       var limitStr = limit.toString()
       var offserStr = offset.toString()
-      console.log(limitStr+"_"+offserStr)
+      //console.log(limitStr+"_"+offserStr)
       var keyStr = "users_"+limitStr+"_"+offserStr
 
       const redis = require('redis');
