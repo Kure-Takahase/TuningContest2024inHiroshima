@@ -258,6 +258,7 @@ matchGroupRouter.get(
       //console.time("membersGroupID"+"_"+randomStr);
 
       var keyStr = "membersMatchGroupID_"+user.userId.toString()
+      let matchGroupIds
       const redis = require('redis');
       const client = redis.createClient({
         url: 'redis://my-redis:6379',
@@ -266,13 +267,13 @@ matchGroupRouter.get(
       const value = await client.get(keyStr);
       if(value == null)
       {
-        var matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
+        matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
         var jsonStr = JSON.stringify(matchGroupIds);
         await client.set(keyStr, jsonStr);
       }
       else
       {
-        var matchGroupIds = JSON.parse(value);
+        matchGroupIds = JSON.parse(value);
       }
       client.disconnect()
 
