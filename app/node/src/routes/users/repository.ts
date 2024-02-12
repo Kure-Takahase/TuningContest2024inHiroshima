@@ -238,6 +238,12 @@ export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
 export const getUserForFilter = async (
   userId?: string
 ): Promise<UserForFilter> => {
+
+  const [countRes] = await pool.query<RowDataPacket[]>(
+      "SELECT COUNT(*) FROM user;"
+    );
+  console.log(countRes)
+
   let userRows: RowDataPacket[];
   if (!userId) {
     [userRows] = await pool.query<RowDataPacket[]>(
