@@ -88,7 +88,7 @@ export const createMatchGroup = async (
   }
 
   const matchGroupId = uuidv4();
-console.time("Create_Thid"+"_"+randomStr);
+  console.time("Create_Thid"+"_"+randomStr);
   await insertMatchGroup({
     matchGroupId,
     matchGroupName: matchGroupConfig.matchGroupName,
@@ -126,7 +126,13 @@ const isPassedOfficeFilter = (
 };
 
 const isPassedMatchFilter = async (ownerId: string, candidateId: string) => {
+
+  let random = Math.floor(Math.random() * 100000) + 1;
+  var randomStr = random.toString()
+  console.time("Create_Other"+"_"+randomStr);
   const userIdsBeforeMatched = await getUserIdsBeforeMatched(ownerId);
+  console.timeEnd("Create_Other"+"_"+randomStr);
+
   return userIdsBeforeMatched.every(
     (userIdBeforeMatched) => userIdBeforeMatched !== candidateId
   );
