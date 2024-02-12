@@ -245,7 +245,7 @@ export const getUserForFilter = async (
 
   const countResObj = countRes[0].count
   var countResNum = countResObj
-  console.log(countResObj)
+  //console.log(countResObj)
   //console.log(countResObj['COUNT(*)'])
   const n = Number(countResNum);
   const randomNumber = Math.floor(Math.random() * (n + 1));
