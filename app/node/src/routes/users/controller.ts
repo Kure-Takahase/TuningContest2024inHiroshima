@@ -72,11 +72,30 @@ usersRouter.get(
     }
 
     try {
-      console.time("usersQuery"+randomStr);
-      const users = await getUsers(limit, offset);
-      //console.timeEnd("usersQuery"+randomStr);
-      res.status(200).json(users);
-      //console.log("successfully get users list");
+      var keyStr = "users_"+limit.toString+"_"+offset.toString()
+      const redis = require('redis');
+      const client = redis.createClient({
+        url: 'redis://my-redis:6379',
+      });
+      client.connect()
+      const value = await client.get(keyStr);
+      if value == null
+      {
+        //console.time("usersQuery"+randomStr);
+        const users = await getUsers(limit, offset);
+        //console.timeEnd("usersQuery"+randomStr);
+        res.status(200).json(users);
+        //console.log("successfully get users list");
+        var jsonStr = JSON.stringify(users);
+        await client.set(keyStr, jsonStr);
+
+      }
+      else
+      {
+        res.status(200).send(value);
+      }
+      client.disconnect()
+
     } catch (e) {
       next(e);
     }
