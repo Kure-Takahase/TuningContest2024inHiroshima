@@ -40,8 +40,8 @@ matchGroupRouter.post(
       console.time("membersReqBodyCheck"+"_"+randomStr);
       //console.log("specified condition is valid");
 
-      let random = Math.floor(Math.random() * 100000) + 1;
-      var randomStr = random.toString()
+      //let random = Math.floor(Math.random() * 100000) + 1;
+      //var randomStr = random.toString()
       console.time("membersCreateGroup"+"_"+randomStr);
       const matchGroupDetail = await createMatchGroup(reqBody);
       console.time("membersCreateGroup"+"_"+randomStr);
@@ -253,8 +253,8 @@ matchGroupRouter.get(
         offset = 0;
       }
 
-      let random = Math.floor(Math.random() * 100000) + 1;
-      var randomStr = random.toString()
+      //let random = Math.floor(Math.random() * 100000) + 1;
+      //var randomStr = random.toString()
       console.time("membersGroupID"+"_"+randomStr);
       const matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
       console.timeEnd("membersGroupID"+"_"+randomStr);
@@ -264,8 +264,8 @@ matchGroupRouter.get(
         return;
       }
 
-      let random = Math.floor(Math.random() * 100000) + 1;
-      var randomStr = random.toString()
+      //let random = Math.floor(Math.random() * 100000) + 1;
+      //var randomStr = random.toString()
       console.time("membersMatchGroups"+"_"+randomStr);
       const matchGroups = await getMatchGroupsByMatchGroupIds(
         matchGroupIds,
