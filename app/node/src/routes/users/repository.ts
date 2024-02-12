@@ -141,6 +141,7 @@ export const getUsersByUserIds = async (
       {
         console.log("正常查询出错！4")
       }
+      users = users.concat(convertToSearchedUser(userRows));
     }
     else
     {
@@ -152,19 +153,13 @@ export const getUsersByUserIds = async (
       console.log(userIdkeyStr)
       console.log(result)
       console.log(userRows)
-    }
-    if(userRows == undefined)
-    {
-      if(result == null)
+      if(userRows == undefined)
       {
-        console.log("正常查询出错！5")
+        console.log("缓存出错！")
       }
-      else
-      {
-        console.log("result is not null!")
-      }
+      users = users.concat(convertToSearchedUser(userRows));
     }
-    users = users.concat(convertToSearchedUser(userRows));
+    
   }
   client.disconnect()
   return users;
