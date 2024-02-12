@@ -59,6 +59,7 @@ usersRouter.get(
         var jsonStr = JSON.stringify(userIcon);
         await client.set(userIconkeyStr, jsonStr);
         await client.set(userIconkeyDataStr, base64Str);
+        await client.set("fileID_"+userIconId, userIcon.fileName);
 
       }
       else

@@ -95,12 +95,29 @@ export const getUsersByUserIds = async (
       `SELECT office_name FROM office WHERE office_id = ?`,
       [userRows[0].office_id]
     );
-    const [fileRows] = await pool.query<RowDataPacket[]>(
-      `SELECT file_name FROM file WHERE file_id = ?`,
-      [userRows[0].user_icon_id]
-    );
+
+    const redis = require('redis');
+    const client = redis.createClient({
+      url: 'redis://my-redis:6379',
+    });
+    client.connect()
+    var keyStr = "fileID_"+userRows[0].user_icon_id
+    const value = await client.get(keyStr);
+    if(value == null)
+    {
+      const [fileRows] = await pool.query<RowDataPacket[]>(
+        `SELECT file_name FROM file WHERE file_id = ?`,
+        [userRows[0].user_icon_id]
+      );
+      userRows[0].file_name = fileRows[0].file_name;
+      await client.set(keyStr,fileRows[0].file_name);
+    }
+    else
+    {
+      userRows[0].file_name = value
+    }
+    client.disconnect()
     userRows[0].office_name = officeRows[0].office_name;
-    userRows[0].file_name = fileRows[0].file_name;
 
     users = users.concat(convertToSearchedUser(userRows));
   }
