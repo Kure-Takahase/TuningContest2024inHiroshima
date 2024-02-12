@@ -24,7 +24,7 @@ usersRouter.get(
     try {
       console.time("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
       const userIcon = await getFileByFileId(userIconId);
-      //console.timeEnd("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
+      console.timeEnd("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
       if (!userIcon) {
         res.status(404).json({
           message:
@@ -46,7 +46,7 @@ usersRouter.get(
     } catch (e) {
       next(e);
     }
-    //console.timeEnd("userIconIdTotal_"+req.params.userIconId+"_"+randomStr);
+    console.timeEnd("userIconIdTotal_"+req.params.userIconId+"_"+randomStr);
   }
 );
 
@@ -81,9 +81,9 @@ usersRouter.get(
       const value = await client.get(keyStr);
       if(value == null)
       {
-        //console.time("usersQuery"+randomStr);
+        console.time("usersQuery"+randomStr);
         const users = await getUsers(limit, offset);
-        //console.timeEnd("usersQuery"+randomStr);
+        console.timeEnd("usersQuery"+randomStr);
         res.status(200).json(users);
         //console.log("successfully get users list");
         var jsonStr = JSON.stringify(users);
@@ -99,7 +99,7 @@ usersRouter.get(
     } catch (e) {
       next(e);
     }
-    //console.timeEnd("usersTotal"+randomStr);
+    console.timeEnd("usersTotal"+randomStr);
   }
 );
 
@@ -217,7 +217,7 @@ usersRouter.get(
     } catch (e) {
       next(e);
     }
-    //console.timeEnd("searchTotal"+randomStr);
+    console.timeEnd("searchTotal"+randomStr);
   }
 );
 
