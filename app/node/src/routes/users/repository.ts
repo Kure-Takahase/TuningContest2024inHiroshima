@@ -242,12 +242,22 @@ export const getUserForFilter = async (
   const [countRes] = await pool.query<RowDataPacket[]>(
       "SELECT COUNT(*) FROM user;"
     );
-  console.log(countRes)
+  SELECT * FROM table_name LIMIT 9, 1;
+  var countResNum = countRes[0]
+  const n = Number(countResNum);
+  const randomNumber = Math.floor(Math.random() * (n + 1));
+  var randomStr = randomNumber.toString()
+  console.log(Number(countResNum).toString())
 
   let userRows: RowDataPacket[];
   if (!userId) {
+    /*
     [userRows] = await pool.query<RowDataPacket[]>(
       "SELECT user_id, user_name, office_id, user_icon_id FROM user ORDER BY RAND() LIMIT 1"
+    );
+    */
+    [userRows] = await pool.query<RowDataPacket[]>(
+      "SELECT user_id, user_name, office_id, user_icon_id FROM user LIMIT "+randomStr+", 1;"
     );
   } else {
     [userRows] = await pool.query<RowDataPacket[]>(
