@@ -29,8 +29,6 @@ export const getUserIdsBeforeMatched = async (
     return [];
   }
 
-  let random = Math.floor(Math.random() * 100000) + 1;
-  var randomStr = random.toString()
   console.time("Before_Match_Sec"+"_"+randomStr);
   const [userIdRows] = await pool.query<RowDataPacket[]>(
     "SELECT user_id FROM match_group_member WHERE match_group_id IN (?)",
