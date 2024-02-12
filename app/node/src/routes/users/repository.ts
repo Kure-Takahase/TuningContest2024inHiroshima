@@ -99,13 +99,10 @@ export const getUsersByUserIds = async (
       if (userRows.length === 0) {
         continue;
       }
-      
-
       const [officeRows] = await pool.query<RowDataPacket[]>(
         `SELECT office_name FROM office WHERE office_id = ?`,
         [userRows[0].office_id]
       );
-      
       var keyStr = "fileID_"+userRows[0].user_icon_id
       var value = await client.get(keyStr);
       if(value == null)
@@ -122,25 +119,16 @@ export const getUsersByUserIds = async (
         userRows[0].file_name = value
       }
       userRows[0].office_name = officeRows[0].office_name;
-
-      
-
       var jsonStr = JSON.stringify(userRows)
       await client.set(userIdkeyStr,jsonStr);
-      
       users = users.concat(convertToSearchedUser(userRows));
     }
     else
     {
       const userRows = JSON.parse(result);
       if (userRows.length === 0) {
-        //console.log("跳过！")
         continue;
       }
-      //console.log(userIdkeyStr)
-      //console.log(result)
-      //console.log(userRows)
-      
       users = users.concat(convertToSearchedUser(userRows));
     }
     

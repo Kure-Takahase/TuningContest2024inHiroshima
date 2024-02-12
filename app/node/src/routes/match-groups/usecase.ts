@@ -28,7 +28,12 @@ export const createMatchGroup = async (
   matchGroupConfig: MatchGroupConfig,
   timeout?: number
 ): Promise<MatchGroupDetail | undefined> => {
+
+  let random = Math.floor(Math.random() * 100000) + 1;
+  var randomStr = random.toString()
+  console.time("Create_Frist"+"_"+randomStr);
   const owner = await getUserForFilter(matchGroupConfig.ownerId);
+  console.timeEnd("Create_Frist"+"_"+randomStr);
   let members: UserForFilter[] = [owner];
   const startTime = Date.now();
   while (members.length < matchGroupConfig.numOfMembers) {
@@ -37,7 +42,9 @@ export const createMatchGroup = async (
       console.error("not all members found before timeout");
       return;
     }
+    console.time("Create_Sec"+"_"+randomStr);
     const candidate = await getUserForFilter();
+    console.timeEnd("Create_Sec"+"_"+randomStr);
     if (
       matchGroupConfig.departmentFilter !== "none" &&
       !isPassedDepartmentFilter(
@@ -81,6 +88,7 @@ export const createMatchGroup = async (
   }
 
   const matchGroupId = uuidv4();
+console.time("Create_Thid"+"_"+randomStr);
   await insertMatchGroup({
     matchGroupId,
     matchGroupName: matchGroupConfig.matchGroupName,
@@ -90,8 +98,11 @@ export const createMatchGroup = async (
     createdBy: matchGroupConfig.ownerId,
     createdAt: new Date(),
   });
-
-  return await getMatchGroupDetailByMatchGroupId(matchGroupId);
+  console.timeEnd("Create_Thid"+"_"+randomStr);
+  console.time("Create_Four"+"_"+randomStr);
+  const res = await getMatchGroupDetailByMatchGroupId(matchGroupId);
+  console.timeEnd("Create_Four"+"_"+randomStr);
+  return res
 };
 
 const isPassedDepartmentFilter = (

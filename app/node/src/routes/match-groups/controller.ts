@@ -37,14 +37,14 @@ matchGroupRouter.post(
       if (!(await isReqBodyValueCorrect(reqBody, res))) {
         return;
       }
-      console.timeEnd("BodyCheck"+"_"+randomStr);
+      //console.timeEnd("BodyCheck"+"_"+randomStr);
       //console.log("specified condition is valid");
 
       //let random = Math.floor(Math.random() * 100000) + 1;
       //var randomStr = random.toString()
       console.time("CreateGroup"+"_"+randomStr);
       const matchGroupDetail = await createMatchGroup(reqBody);
-      console.timeEnd("CreateGroup"+"_"+randomStr);
+      //console.timeEnd("CreateGroup"+"_"+randomStr);
 
       if (!matchGroupDetail) {
         res.status(500).json({
@@ -234,7 +234,7 @@ matchGroupRouter.get(
       var randomStr = random.toString()
       console.time("groupUserID"+"_"+randomStr);
       const user = await getUserByUserId(userId);
-      console.timeEnd("groupUserID"+"_"+randomStr);
+      //console.timeEnd("groupUserID"+"_"+randomStr);
       if (!user) {
         res.status(404).json({
           message: "指定されたユーザーは存在しません。",
@@ -277,9 +277,9 @@ matchGroupRouter.get(
         matchGroupIds = JSON.parse(value);
       }
       client.disconnect()
-      console.timeEnd("GroupID"+"_"+randomStr);
+      //console.timeEnd("GroupID"+"_"+randomStr);
 
-      //console.timeEnd("membersGroupID"+"_"+randomStr);
+      ////console.timeEnd("membersGroupID"+"_"+randomStr);
       //console.log(`user participated in ${matchGroupIds.length} match groups`);
       if (matchGroupIds.length === 0) {
         res.json([]);
@@ -293,7 +293,7 @@ matchGroupRouter.get(
         matchGroupIds,
         status
       );
-      console.timeEnd("Match"+"_"+randomStr);
+      //console.timeEnd("Match"+"_"+randomStr);
       if (matchGroups.length === 0) {
         res.json([]);
         //console.log("no valid match groups found");
