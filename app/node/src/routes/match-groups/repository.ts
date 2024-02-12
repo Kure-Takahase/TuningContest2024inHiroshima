@@ -63,20 +63,29 @@ export const getMatchGroupDetailByMatchGroupId = async (
   if (status === "open") {
     query += " AND status = 'open'";
   }
+  let random = Math.floor(Math.random() * 100000) + 1;
+  var randomStr = random.toString()
+  console.time("March_Frist"+"_"+randomStr);
   const [matchGroup] = await pool.query<RowDataPacket[]>(query, [matchGroupId]);
+  console.timeEnd("March_Frist"+"_"+randomStr);
   if (matchGroup.length === 0) {
     return;
   }
 
+  console.time("March_Sec"+"_"+randomStr);
   const [matchGroupMemberIdRows] = await pool.query<RowDataPacket[]>(
     "SELECT user_id FROM match_group_member WHERE match_group_id = ?",
     [matchGroupId]
   );
+  console.timeEnd("March_Sec"+"_"+randomStr);
   const matchGroupMemberIds: string[] = matchGroupMemberIdRows.map(
     (row) => row.user_id
   );
 
+console.time("March_Trid"+"_"+randomStr);
   const searchedUsers = await getUsersByUserIds(matchGroupMemberIds);
+  console.timeEnd("March_Trid"+"_"+randomStr);
+
   // SearchedUserからUser型に変換
   const members: User[] = searchedUsers.map((searchedUser) => {
     const { kana: _kana, entryDate: _entryDate, ...rest } = searchedUser;
@@ -86,6 +95,12 @@ export const getMatchGroupDetailByMatchGroupId = async (
 
   return convertToMatchGroupDetail(matchGroup[0]);
 };
+
+
+
+
+
+
 
 export const getMatchGroupIdsByUserId = async (
   userId: string
