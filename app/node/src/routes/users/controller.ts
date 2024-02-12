@@ -72,7 +72,10 @@ usersRouter.get(
     }
 
     try {
-      var keyStr = "users_"+limit.toString()+"_"+offset.toString()
+      var limitStr = limit.toString()
+      var offserStr = offset.toString()
+      console.log(limitStr+"_"+offserStr)
+      var keyStr = "users_"+limitStr+"_"+offserStr
 
       const redis = require('redis');
       const client = redis.createClient({
