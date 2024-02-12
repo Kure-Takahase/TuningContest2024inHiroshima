@@ -128,6 +128,9 @@ export const getUsersByUserIds = async (
     else
     {
       var userRows = JSON.parse(result);
+      console.log(userIdkeyStr)
+      console.log(result)
+      console.log(userRows)
     }
     users = users.concat(convertToSearchedUser(userRows));
   }
