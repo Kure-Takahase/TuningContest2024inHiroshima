@@ -31,7 +31,7 @@ matchGroupRouter.post(
         skillFilter: req.body.skillFilter,
         neverMatchedFilter: req.body.neverMatchedFilter,
       };
-      let random = Math.floor(Math.random() * 100000) + 1;
+      let random = Math.floor(Math.random() * 10000000) + 1;
       var randomStr = random.toString()
       console.time("membersReqBodyCheck"+"_"+randomStr);
       if (!(await isReqBodyValueCorrect(reqBody, res))) {
@@ -232,9 +232,9 @@ matchGroupRouter.get(
     try {
       let random = Math.floor(Math.random() * 100000) + 1;
       var randomStr = random.toString()
-      console.time("membersUserID"+"_"+randomStr);
+      //console.time("membersUserID"+"_"+randomStr);
       const user = await getUserByUserId(userId);
-      console.timeEnd("membersUserID"+"_"+randomStr);
+      //console.timeEnd("membersUserID"+"_"+randomStr);
       if (!user) {
         res.status(404).json({
           message: "指定されたユーザーは存在しません。",
@@ -255,9 +255,9 @@ matchGroupRouter.get(
 
       //let random = Math.floor(Math.random() * 100000) + 1;
       //var randomStr = random.toString()
-      console.time("membersGroupID"+"_"+randomStr);
+      //console.time("membersGroupID"+"_"+randomStr);
       const matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
-      console.timeEnd("membersGroupID"+"_"+randomStr);
+      //console.timeEnd("membersGroupID"+"_"+randomStr);
       //console.log(`user participated in ${matchGroupIds.length} match groups`);
       if (matchGroupIds.length === 0) {
         res.json([]);
