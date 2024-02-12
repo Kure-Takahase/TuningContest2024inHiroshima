@@ -31,12 +31,21 @@ matchGroupRouter.post(
         skillFilter: req.body.skillFilter,
         neverMatchedFilter: req.body.neverMatchedFilter,
       };
+      let random = Math.floor(Math.random() * 100000) + 1;
+      var randomStr = random.toString()
+      console.time("membersReqBodyCheck"+"_"+randomStr);
       if (!(await isReqBodyValueCorrect(reqBody, res))) {
         return;
       }
+      console.time("membersReqBodyCheck"+"_"+randomStr);
       //console.log("specified condition is valid");
 
+      let random = Math.floor(Math.random() * 100000) + 1;
+      var randomStr = random.toString()
+      console.time("membersCreateGroup"+"_"+randomStr);
       const matchGroupDetail = await createMatchGroup(reqBody);
+      console.time("membersCreateGroup"+"_"+randomStr);
+
       if (!matchGroupDetail) {
         res.status(500).json({
           message: "マッチグループの作成に失敗しました。",
