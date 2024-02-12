@@ -43,7 +43,7 @@ export const getUsersByKeyword = async (
         users = users.concat(await getUsersByGoal(keyword));
         break;
     }
-    console.log(`${users.length - oldLen} users found by ${target}`);
+    //console.log(`${users.length - oldLen} users found by ${target}`);
   }
   return users;
 };

@@ -37,7 +37,7 @@ usersRouter.get(
         fileName: userIcon.fileName,
         data: data.toString("base64"),
       });
-      console.log("successfully get user icon");
+      //console.log("successfully get user icon");
     } catch (e) {
       next(e);
     }
@@ -141,7 +141,7 @@ usersRouter.get(
       );
       if (duplicateUsers.length === 0) {
         res.json([]);
-        console.log("no user found");
+        //console.log("no user found");
         return;
       }
 
@@ -179,7 +179,7 @@ usersRouter.get(
           };
         });
       res.json(users);
-      console.log(`successfully searched ${users.length} users`);
+      //console.log(`successfully searched ${users.length} users`);
       console.timeEnd("searchTotal");
     } catch (e) {
       next(e);
@@ -220,7 +220,7 @@ usersRouter.get(
         return;
       }
       res.status(200).json(user);
-      console.log("successfully get login user");
+      //console.log("successfully get login user");
     } catch (e) {
       next(e);
     }
