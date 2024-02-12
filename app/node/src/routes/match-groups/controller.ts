@@ -266,16 +266,17 @@ matchGroupRouter.get(
       const value = await client.get(keyStr);
       if(value == null)
       {
-        const matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
-        var jsonStr = JSON.stringify(matchGroupIds);
+        const matchGroupIds_a = await getMatchGroupIdsByUserId(user.userId);
+        var jsonStr = JSON.stringify(matchGroupIds_a);
         await client.set(keyStr, jsonStr);
       }
       else
       {
-        const matchGroupIds = JSON.parse(value);
+        const matchGroupIds_a = JSON.parse(value);
+        const matchGroupIds = matchGroupIds_a
       }
       client.disconnect()
-
+      const matchGroupIds = matchGroupIds_a
 
       //console.timeEnd("membersGroupID"+"_"+randomStr);
       //console.log(`user participated in ${matchGroupIds.length} match groups`);
