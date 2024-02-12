@@ -17,7 +17,7 @@ usersRouter.get(
     next: express.NextFunction
   ) => {
     let random = Math.floor(Math.random() * 100) + 1;
-    randomStr = random.toString()
+    var randomStr = random.toString()
     console.time("userIconIdTotal"+randomStr);
     const userIconId: string = req.params.userIconId;
 
@@ -57,7 +57,7 @@ usersRouter.get(
     next: express.NextFunction
   ) => {
     let random = Math.floor(Math.random() * 100) + 1;
-    randomStr = random.toString()
+    var randomStr = random.toString()
     console.time("usersTotal"+randomStr);
     let limit = Math.trunc(Number(req.query.limit));
     if (Number.isNaN(limit) || limit < 0 || 100 < limit) {
@@ -89,7 +89,7 @@ usersRouter.get(
     next: express.NextFunction
   ) => {
     let random = Math.floor(Math.random() * 100) + 1;
-    randomStr = random.toString()
+    var randomStr = random.toString()
     console.time("searchTotal"+randomStr);
     const keyword = req.query.q;
     if (typeof keyword !== "string") {
