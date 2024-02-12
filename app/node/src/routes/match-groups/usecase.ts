@@ -31,9 +31,9 @@ export const createMatchGroup = async (
 
   let random = Math.floor(Math.random() * 100000) + 1;
   var randomStr = random.toString()
-  console.time("Create_Frist"+"_"+randomStr);
+  //console.time("Create_Frist"+"_"+randomStr);
   const owner = await getUserForFilter(matchGroupConfig.ownerId);
-  console.timeEnd("Create_Frist"+"_"+randomStr);
+  //console.timeEnd("Create_Frist"+"_"+randomStr);
   let members: UserForFilter[] = [owner];
   const startTime = Date.now();
   while (members.length < matchGroupConfig.numOfMembers) {
@@ -42,9 +42,9 @@ export const createMatchGroup = async (
       console.error("not all members found before timeout");
       return;
     }
-    console.time("Create_Sec"+"_"+randomStr);
+    //console.time("Create_Sec"+"_"+randomStr);
     const candidate = await getUserForFilter();
-    console.timeEnd("Create_Sec"+"_"+randomStr);
+    //console.timeEnd("Create_Sec"+"_"+randomStr);
     if (
       matchGroupConfig.departmentFilter !== "none" &&
       !isPassedDepartmentFilter(
