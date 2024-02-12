@@ -242,7 +242,6 @@ export const getUserForFilter = async (
   const [countRes] = await pool.query<RowDataPacket[]>(
       "SELECT COUNT(*) FROM user;"
     );
-  SELECT * FROM table_name LIMIT 9, 1;
   var countResNum = countRes[0]
   const n = Number(countResNum);
   const randomNumber = Math.floor(Math.random() * (n + 1));
