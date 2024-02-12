@@ -18,11 +18,13 @@ usersRouter.get(
   ) => {
     let random = Math.floor(Math.random() * 1000) + 1;
     var randomStr = random.toString()
-    console.time("userIconIdTotal"+randomStr);
+    console.time("userIconIdTotal_"+req.params.userIconId+"_"+randomStr);
     const userIconId: string = req.params.userIconId;
 
     try {
+      console.time("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
       const userIcon = await getFileByFileId(userIconId);
+      console.timeEnd("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
       if (!userIcon) {
         res.status(404).json({
           message:
@@ -44,7 +46,7 @@ usersRouter.get(
     } catch (e) {
       next(e);
     }
-    console.timeEnd("userIconIdTotal"+randomStr);
+    console.timeEnd("userIconIdTotal_"+req.params.userIconId+"_"+randomStr);
   }
 );
 
@@ -70,7 +72,9 @@ usersRouter.get(
     }
 
     try {
+      console.time("usersQuery"+randomStr);
       const users = await getUsers(limit, offset);
+      console.timeEnd("usersQuery"+randomStr);
       res.status(200).json(users);
       //console.log("successfully get users list");
     } catch (e) {
