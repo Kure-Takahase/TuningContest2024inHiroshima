@@ -82,45 +82,56 @@ export const getUsersByUserIds = async (
   userIds: string[]
 ): Promise<SearchedUser[]> => {
   let users: SearchedUser[] = [];
+  const redis = require('redis');
+  const client = redis.createClient({
+    url: 'redis://my-redis:6379',
+  });
+  client.connect()
   for (const userId of userIds) {
-    const [userRows] = await pool.query<RowDataPacket[]>(
-      "SELECT user_id, user_name, kana, entry_date, office_id, user_icon_id FROM user WHERE user_id = ?",
-      [userId]
-    );
-    if (userRows.length === 0) {
-      continue;
-    }
-
-    const [officeRows] = await pool.query<RowDataPacket[]>(
-      `SELECT office_name FROM office WHERE office_id = ?`,
-      [userRows[0].office_id]
-    );
-
-    const redis = require('redis');
-    const client = redis.createClient({
-      url: 'redis://my-redis:6379',
-    });
-    client.connect()
-    var keyStr = "fileID_"+userRows[0].user_icon_id
-    const value = await client.get(keyStr);
-    if(value == null)
+    var userIdkeyStr = "userIds_"+userId
+    var result = await client.get(userIdkeyStr);
+    if(result == null)
     {
-      const [fileRows] = await pool.query<RowDataPacket[]>(
-        `SELECT file_name FROM file WHERE file_id = ?`,
-        [userRows[0].user_icon_id]
+      const [userRows] = await pool.query<RowDataPacket[]>(
+        "SELECT user_id, user_name, kana, entry_date, office_id, user_icon_id FROM user WHERE user_id = ?",
+        [userId]
       );
-      userRows[0].file_name = fileRows[0].file_name;
-      await client.set(keyStr,fileRows[0].file_name);
+      if (userRows.length === 0) {
+        continue;
+      }
+
+      const [officeRows] = await pool.query<RowDataPacket[]>(
+        `SELECT office_name FROM office WHERE office_id = ?`,
+        [userRows[0].office_id]
+      );
+
+      var keyStr = "fileID_"+userRows[0].user_icon_id
+      const value = await client.get(keyStr);
+      if(value == null)
+      {
+        const [fileRows] = await pool.query<RowDataPacket[]>(
+          `SELECT file_name FROM file WHERE file_id = ?`,
+          [userRows[0].user_icon_id]
+        );
+        userRows[0].file_name = fileRows[0].file_name;
+        await client.set(keyStr,fileRows[0].file_name);
+      }
+      else
+      {
+        userRows[0].file_name = value
+      }
+      userRows[0].office_name = officeRows[0].office_name;
+
+      jsonStr = JSON.stringify(userRows)
+      await client.set(userIdkeyStr,jsonStr);
     }
     else
     {
-      userRows[0].file_name = value
+      var userRows = JSON.parse(value);
     }
-    client.disconnect()
-    userRows[0].office_name = officeRows[0].office_name;
-
     users = users.concat(convertToSearchedUser(userRows));
   }
+  client.disconnect()
   return users;
 };
 
