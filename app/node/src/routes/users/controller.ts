@@ -225,7 +225,7 @@ usersRouter.get(
         return;
       }
       res.status(200).json(user);
-      //console.log("successfully get login user");
+      /*console.log("successfully get login user");*/
     } catch (e) {
       next(e);
     }
