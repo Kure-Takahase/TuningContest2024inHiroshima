@@ -79,7 +79,7 @@ usersRouter.get(
       });
       client.connect()
       const value = await client.get(keyStr);
-      if value == null
+      if(value == null)
       {
         //console.time("usersQuery"+randomStr);
         const users = await getUsers(limit, offset);
