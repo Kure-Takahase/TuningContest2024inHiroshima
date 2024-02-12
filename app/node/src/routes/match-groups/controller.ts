@@ -258,7 +258,7 @@ matchGroupRouter.get(
       //console.time("groupUserID"+"_"+randomStr);
 
       console.time("GroupID"+"_"+randomStr);
-      matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
+      const matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
 
       /*
       var keyStr = "membersMatchGroupID_"+user.userId.toString()
