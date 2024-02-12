@@ -72,7 +72,8 @@ usersRouter.get(
     }
 
     try {
-      var keyStr = "users_"+limit.toString+"_"+offset.toString()
+      var keyStr = "users_"+limit.toString()+"_"+offset.toString()
+
       const redis = require('redis');
       const client = redis.createClient({
         url: 'redis://my-redis:6379',
