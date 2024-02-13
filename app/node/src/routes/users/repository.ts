@@ -273,6 +273,8 @@ export const getUsersByGoal = async (goal: string): Promise<string> => {
   });
   client.connect()
   var jsonStr = JSON.stringify(result);
+  let random = Math.floor(Math.random() * 100000) + 1;
+  var randomStr = random.toString()
   var keyStrGoal = "Goal_ALL_"+randomStr
   await client.set(keyStrGoal, jsonStr);
   client.disconnect()
