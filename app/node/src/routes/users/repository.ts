@@ -256,8 +256,12 @@ export const getUsersBySkillName = async (
 };
 
 export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
+  
   let random = Math.floor(Math.random() * 100000) + 1;
   var randomStr = random.toString()
+  console.time("Goal_ALL"+randomStr);
+
+
   console.time("Goal_Frist"+randomStr);
   const [rows] = await pool.query<RowDataPacket[]>(
     `SELECT user_id FROM user WHERE goal LIKE ?`,
@@ -272,6 +276,10 @@ export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
   console.time("Goal_Sec"+randomStr);
   const result = getUsersByUserIds(userIds);
   console.timeEnd("Goal_Sec"+randomStr);
+
+  console.timeEnd("Goal_ALL"+randomStr);
+
+
   return result
 };
 
