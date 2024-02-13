@@ -33,49 +33,49 @@ export const getUsersByKeyword = async (
       console.time("Keyword_"+target+ "_" + keyword+"_"+randomStr);
       switch (target) {
       case "userName":
-        const userSingle = await getUsersByUserName(keyword)
+        var userSingle = await getUsersByUserName(keyword)
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);
         await client.set(keyStr, jsonStr);
         break;
       case "kana":
-        const userSingle = await getUsersByKana(keyword)
+        var userSingle = await getUsersByKana(keyword)
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);
         await client.set(keyStr, jsonStr);
         break;
       case "mail":
-        const userSingle = await getUsersByMail(keyword)
+        var userSingle = await getUsersByMail(keyword)
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);
         await client.set(keyStr, jsonStr);
         break;
       case "department":
-        const userSingle = await getUsersByDepartmentName(keyword)
+        var userSingle = await getUsersByDepartmentName(keyword)
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);
         await client.set(keyStr, jsonStr);
         break;
       case "role":
-        const userSingle = await getUsersByRoleName(keyword)
+        var userSingle = await getUsersByRoleName(keyword)
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);
         await client.set(keyStr, jsonStr);
         break;
       case "office":
-        const userSingle = await getUsersByOfficeName(keyword)
+        var userSingle = await getUsersByOfficeName(keyword)
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);
         await client.set(keyStr, jsonStr);
         break;
       case "skill":
-        const userSingle = await getUsersBySkillName(keyword)
+        var userSingle = await getUsersBySkillName(keyword)
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);
         await client.set(keyStr, jsonStr);
         break;
       case "goal":
-        const userSingle = await getUsersByGoal(keyword)
+        var userSingle = await getUsersByGoal(keyword)
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);
         await client.set(keyStr, jsonStr);
@@ -86,7 +86,7 @@ export const getUsersByKeyword = async (
     else
     {
       //console.log("Keyword Hit");
-      const userSingle = JSON.parse(value);
+      var userSingle = JSON.parse(value);
       users = users.concat(userSingle)
     }
     //console.log(`${users.length - oldLen} users found by ${target}`);
