@@ -255,7 +255,9 @@ export const getUsersBySkillName = async (
   return getUsersByUserIds(userIds);
 };
 
-export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
+
+export const getUsersByGoal = async (goal: string): Promise<string> => {
+  //export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
   //export const getUsersByGoal = async (goal: string): Promise<string> => {
   const [rows] = await pool.query<RowDataPacket[]>(
     `SELECT user_id FROM user WHERE goal LIKE ?`,
@@ -264,7 +266,7 @@ export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
   const userIds: string[] = rows.map((row) => row.user_id);
   const result = getUsersByUserIds(userIds);
   
-  /*
+  
   const redis = require('redis');
   const client = redis.createClient({
     url: 'redis://my-redis:6379',
@@ -275,9 +277,9 @@ export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
   await client.set(keyStrGoal, jsonStr);
   client.disconnect()
   return keyStrGoal
-  */
+  
 
-  return result
+  //return result
 };
 
 export const getUserForFilter = async (
