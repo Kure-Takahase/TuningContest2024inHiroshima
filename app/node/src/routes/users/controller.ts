@@ -16,9 +16,9 @@ usersRouter.get(
     res: express.Response,
     next: express.NextFunction
   ) => {
-    let random = Math.floor(Math.random() * 10000) + 1;
-    var randomStr = random.toString()
-    console.time("userIconIdTotal_"+req.params.userIconId+"_"+randomStr);
+    //let random = Math.floor(Math.random() * 10000) + 1;
+    //var randomStr = random.toString()
+    //console.time("userIconIdTotal_"+req.params.userIconId+"_"+randomStr);
     const userIconId: string = req.params.userIconId;
 
     try {
@@ -32,7 +32,7 @@ usersRouter.get(
       const value = await client.get(userIconkeyStr);
       if(value == null)
       {
-        console.time("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
+        //console.time("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
         const userIcon = await getFileByFileId(userIconId);
         //console.timeEnd("userIconIdQuery_"+req.params.userIconId+"_"+randomStr);
         if (!userIcon) {
@@ -90,9 +90,9 @@ usersRouter.get(
     res: express.Response,
     next: express.NextFunction
   ) => {
-    let random = Math.floor(Math.random() * 10000) + 1;
-    var randomStr = random.toString()
-    console.time("usersTotal"+randomStr);
+    //let random = Math.floor(Math.random() * 10000) + 1;
+    //var randomStr = random.toString()
+    //console.time("usersTotal"+randomStr);
     let limit = Math.trunc(Number(req.query.limit));
     if (Number.isNaN(limit) || limit < 0 || 100 < limit) {
       limit = 20;
@@ -117,7 +117,7 @@ usersRouter.get(
       const value = await client.get(keyStr);
       if(value == null)
       {
-        console.time("usersQuery"+randomStr);
+        //console.time("usersQuery"+randomStr);
         const users = await getUsers(limit, offset);
         //console.timeEnd("usersQuery"+randomStr);
         res.status(200).json(users);
@@ -147,8 +147,8 @@ usersRouter.get(
     res: express.Response,
     next: express.NextFunction
   ) => {
-    let random = Math.floor(Math.random() * 10000) + 1;
-    var randomStr = random.toString()
+    //let random = Math.floor(Math.random() * 10000) + 1;
+    //var randomStr = random.toString()
     //console.time("searchTotal"+randomStr);
     const keyword = req.query.q;
     if (typeof keyword !== "string") {

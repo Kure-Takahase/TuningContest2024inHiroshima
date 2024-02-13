@@ -31,9 +31,9 @@ matchGroupRouter.post(
         skillFilter: req.body.skillFilter,
         neverMatchedFilter: req.body.neverMatchedFilter,
       };
-      let random = Math.floor(Math.random() * 10000000) + 1;
-      var randomStr = random.toString()
-      console.time("BodyCheck"+"_"+randomStr);
+      //let random = Math.floor(Math.random() * 10000000) + 1;
+      //var randomStr = random.toString()
+      //console.time("BodyCheck"+"_"+randomStr);
       if (!(await isReqBodyValueCorrect(reqBody, res))) {
         return;
       }
@@ -42,7 +42,7 @@ matchGroupRouter.post(
 
       //let random = Math.floor(Math.random() * 100000) + 1;
       //var randomStr = random.toString()
-      console.time("CreateGroup"+"_"+randomStr);
+      //console.time("CreateGroup"+"_"+randomStr);
       const matchGroupDetail = await createMatchGroup(reqBody);
       //console.timeEnd("CreateGroup"+"_"+randomStr);
 
@@ -230,8 +230,8 @@ matchGroupRouter.get(
     const userId: string = req.params.userId;
 
     try {
-      let random = Math.floor(Math.random() * 100000) + 1;
-      var randomStr = random.toString()
+      //let random = Math.floor(Math.random() * 100000) + 1;
+      //var randomStr = random.toString()
       //console.time("groupUserID"+"_"+randomStr);
       const user = await getUserByUserId(userId);
       //console.timeEnd("groupUserID"+"_"+randomStr);
