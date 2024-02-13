@@ -264,7 +264,11 @@ export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
     [`%${goal}%`]
   );
   console.timeEnd("Goal_Frist"+randomStr);
+
+  console.time("Map_"+randomStr);
   const userIds: string[] = rows.map((row) => row.user_id);
+  console.timeEnd("Map_"+randomStr);
+
   console.time("Goal_Sec"+randomStr);
   const result = getUsersByUserIds(userIds);
   console.timeEnd("Goal_Sec"+randomStr);
