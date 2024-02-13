@@ -255,12 +255,11 @@ export const getUsersBySkillName = async (
   return getUsersByUserIds(userIds);
 };
 
-//export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
-export const getUsersByGoal = async (goal: string): Promise<string> => {
+export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
+//export const getUsersByGoal = async (goal: string): Promise<string> => {
 
   let random = Math.floor(Math.random() * 100000) + 1;
   var randomStr = random.toString()
-  var keyStrGoal = "Goal_ALL_"+randomStr
   console.time("Goal_ALL"+randomStr);
 
 
@@ -280,18 +279,20 @@ export const getUsersByGoal = async (goal: string): Promise<string> => {
   console.timeEnd("Goal_Sec"+randomStr);
 
   console.timeEnd("Goal_ALL"+randomStr);
-
+  /*
   const redis = require('redis');
   const client = redis.createClient({
     url: 'redis://my-redis:6379',
   });
   client.connect()
   var jsonStr = JSON.stringify(result);
+  var keyStrGoal = "Goal_ALL_"+randomStr
   await client.set(keyStrGoal, jsonStr);
   client.disconnect()
   return keyStrGoal
+  */
 
-  //return result
+  return result
 };
 
 export const getUserForFilter = async (
