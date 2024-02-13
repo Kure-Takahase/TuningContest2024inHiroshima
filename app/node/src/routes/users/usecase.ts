@@ -77,11 +77,13 @@ export const getUsersByKeyword = async (
         break;
       case "goal":
 
-        //userSingle = await getUsersByGoal(keyword)
+        userSingle = await getUsersByGoal(keyword)
         
+        /*
         var goalKeyStr = await getUsersByGoal(keyword)
         var goalJsonStr = await client.get(goalKeyStr);
         userSingle = JSON.parse(goalJsonStr)
+        */
 
         users = users.concat(userSingle)
         var jsonStr = JSON.stringify(userSingle);

@@ -146,7 +146,16 @@ export const getUsersByUserName = async (
   );
   const userIds: string[] = rows.map((row) => row.user_id);
 
-  return getUsersByUserIds(userIds);
+  const result = getUsersByUserIds(userIds);
+  
+
+
+
+
+
+
+
+  return result;
 };
 
 export const getUsersByKana = async (kana: string): Promise<SearchedUser[]> => {
@@ -166,7 +175,16 @@ export const getUsersByMail = async (mail: string): Promise<SearchedUser[]> => {
   );
   const userIds: string[] = rows.map((row) => row.user_id);
 
-  return getUsersByUserIds(userIds);
+  const result = getUsersByUserIds(userIds);
+  
+
+
+
+
+
+
+
+  return result;
 };
 
 export const getUsersByDepartmentName = async (
@@ -189,7 +207,16 @@ export const getUsersByDepartmentName = async (
   );
   const userIds: string[] = userIdRows.map((row) => row.user_id);
 
-  return getUsersByUserIds(userIds);
+  const result = getUsersByUserIds(userIds);
+  
+
+
+
+
+
+
+
+  return result;
 };
 
 export const getUsersByRoleName = async (
@@ -210,7 +237,16 @@ export const getUsersByRoleName = async (
   );
   const userIds: string[] = userIdRows.map((row) => row.user_id);
 
-  return getUsersByUserIds(userIds);
+  const result = getUsersByUserIds(userIds);
+  
+
+
+
+
+
+
+
+  return result;
 };
 
 export const getUsersByOfficeName = async (
@@ -231,7 +267,16 @@ export const getUsersByOfficeName = async (
   );
   const userIds: string[] = userIdRows.map((row) => row.user_id);
 
-  return getUsersByUserIds(userIds);
+  const result = getUsersByUserIds(userIds);
+  
+
+
+
+
+
+
+
+  return result;
 };
 
 export const getUsersBySkillName = async (
@@ -251,12 +296,21 @@ export const getUsersBySkillName = async (
     [skillIds]
   );
   const userIds: string[] = userIdRows.map((row) => row.user_id);
+  
+  const result = getUsersByUserIds(userIds);
+  
 
-  return getUsersByUserIds(userIds);
+
+
+
+
+
+
+  return result;
 };
 
 
-export const getUsersByGoal = async (goal: string): Promise<string> => {
+export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
   //export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
   //export const getUsersByGoal = async (goal: string): Promise<string> => {
   const [rows] = await pool.query<RowDataPacket[]>(
@@ -266,7 +320,7 @@ export const getUsersByGoal = async (goal: string): Promise<string> => {
   const userIds: string[] = rows.map((row) => row.user_id);
   const result = getUsersByUserIds(userIds);
   
-  
+  /*
   const redis = require('redis');
   const client = redis.createClient({
     url: 'redis://my-redis:6379',
@@ -279,9 +333,10 @@ export const getUsersByGoal = async (goal: string): Promise<string> => {
   await client.set(keyStrGoal, jsonStr);
   client.disconnect()
   return keyStrGoal
+  */
   
 
-  //return result
+  return result
 };
 
 export const getUserForFilter = async (
