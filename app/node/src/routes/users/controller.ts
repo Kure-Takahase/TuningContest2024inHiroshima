@@ -200,7 +200,9 @@ usersRouter.get(
     }
 
     let offset = Math.trunc(Number(req.query.offset));
+    console.log("offset start")
     console.log(offset)
+    console.log("offset :",offset)
     if (Number.isNaN(offset) || offset < 0) {
       offset = 0;
     }
