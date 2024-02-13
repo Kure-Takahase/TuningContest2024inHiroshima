@@ -206,11 +206,14 @@ usersRouter.get(
     if (Number.isNaN(offset) || offset < 0) {
       offset = 0;
     }
+    console.log("offset end")
     try {
+      console.log("getUsersByKeyword start")
       const duplicateUsers = await getUsersByKeyword(
         keyword,
         targets as Target[]
       );
+      console.log("getUsersByKeyword end")
       if (duplicateUsers.length === 0) {
         res.json([]);
         //console.log("no user found");
