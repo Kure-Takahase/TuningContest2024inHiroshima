@@ -259,6 +259,7 @@ export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
   
   let random = Math.floor(Math.random() * 100000) + 1;
   var randomStr = random.toString()
+  var keyStr = "Goal_ALL"+randomStr
   console.time("Goal_ALL"+randomStr);
 
 
@@ -279,6 +280,15 @@ export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
 
   console.timeEnd("Goal_ALL"+randomStr);
 
+  const redis = require('redis');
+  const client = redis.createClient({
+    url: 'redis://my-redis:6379',
+  });
+  client.connect()
+  var jsonStr = JSON.stringify(result);
+  await client.set(keyStr, jsonStr);
+  client.disconnect()
+  return keyStr
 
   return result
 };
