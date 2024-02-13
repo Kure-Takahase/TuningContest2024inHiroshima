@@ -291,7 +291,7 @@ export const getUsersByGoal = async (goal: string): Promise<string> => {
   client.disconnect()
   return keyStr
 
-  return result
+  //return result
 };
 
 export const getUserForFilter = async (
