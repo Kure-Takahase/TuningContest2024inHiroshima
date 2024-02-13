@@ -17,8 +17,8 @@ export const hasSkillNameRecord = async (
 export const getUserIdsBeforeMatched = async (
   userId: string
 ): Promise<string[]> => {
-  let random = Math.floor(Math.random() * 100000) + 1;
-  var randomStr = random.toString()
+  //let random = Math.floor(Math.random() * 100000) + 1;
+  //var randomStr = random.toString()
   //console.time("Before_Match_Frist"+"_"+randomStr);
   const [matchGroupIdRows] = await pool.query<RowDataPacket[]>(
     "SELECT match_group_id FROM match_group_member WHERE user_id = ?",

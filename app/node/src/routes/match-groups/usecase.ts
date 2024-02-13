@@ -29,8 +29,8 @@ export const createMatchGroup = async (
   timeout?: number
 ): Promise<MatchGroupDetail | undefined> => {
 
-  let random = Math.floor(Math.random() * 100000) + 1;
-  var randomStr = random.toString()
+  //let random = Math.floor(Math.random() * 100000) + 1;
+  //var randomStr = random.toString()
   //console.time("Create_Frist"+"_"+randomStr);
   const owner = await getUserForFilter(matchGroupConfig.ownerId);
   //console.timeEnd("Create_Frist"+"_"+randomStr);
@@ -127,8 +127,8 @@ const isPassedOfficeFilter = (
 
 const isPassedMatchFilter = async (ownerId: string, candidateId: string) => {
 
-  let random = Math.floor(Math.random() * 100000) + 1;
-  var randomStr = random.toString()
+  //let random = Math.floor(Math.random() * 100000) + 1;
+  //var randomStr = random.toString()
   //console.time("Create_Other"+"_"+randomStr);
   const userIdsBeforeMatched = await getUserIdsBeforeMatched(ownerId);
   //console.timeEnd("Create_Other"+"_"+randomStr);
