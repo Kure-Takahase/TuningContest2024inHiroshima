@@ -30,7 +30,7 @@ export const getUsersByKeyword = async (
     const value = await client.get(keyStr);
     if(value == null)
     {
-      console.time("Keyword_"+target+"_"+randomStr);
+      console.time("Keyword_"+target+ "_" + keyword+"_"+randomStr);
       switch (target) {
       case "userName":
         users = users.concat(await getUsersByUserName(keyword));
@@ -59,7 +59,7 @@ export const getUsersByKeyword = async (
       }
       var jsonStr = JSON.stringify(users);
       await client.set(keyStr, jsonStr);
-      console.timeEnd("Keyword_"+target+"_"+randomStr);
+      console.timeEnd("Keyword_"+target+ "_" + keyword+"_"+randomStr);
     }
     else
     {
