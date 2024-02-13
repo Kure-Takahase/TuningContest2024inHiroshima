@@ -255,8 +255,9 @@ export const getUsersBySkillName = async (
   return getUsersByUserIds(userIds);
 };
 
-export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
-  
+//export const getUsersByGoal = async (goal: string): Promise<SearchedUser[]> => {
+export const getUsersByGoal = async (goal: string): Promise<string> => {
+
   let random = Math.floor(Math.random() * 100000) + 1;
   var randomStr = random.toString()
   var keyStr = "Goal_ALL"+randomStr
