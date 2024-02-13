@@ -232,7 +232,7 @@ matchGroupRouter.get(
     try {
       let random = Math.floor(Math.random() * 100000) + 1;
       var randomStr = random.toString()
-      console.time("groupUserID"+"_"+randomStr);
+      //console.time("groupUserID"+"_"+randomStr);
       const user = await getUserByUserId(userId);
       //console.timeEnd("groupUserID"+"_"+randomStr);
       if (!user) {
@@ -257,7 +257,7 @@ matchGroupRouter.get(
       //var randomStr = random.toString()
       //console.time("groupUserID"+"_"+randomStr);
 
-      console.time("GroupID"+"_"+randomStr);
+      //console.time("GroupID"+"_"+randomStr);
       const matchGroupIds = await getMatchGroupIdsByUserId(user.userId);
 
       /*
@@ -292,7 +292,7 @@ matchGroupRouter.get(
 
       //let random = Math.floor(Math.random() * 100000) + 1;
       //var randomStr = random.toString()
-      console.time("Match"+"_"+randomStr);
+      //console.time("Match"+"_"+randomStr);
       const matchGroups = await getMatchGroupsByMatchGroupIds(
         matchGroupIds,
         status

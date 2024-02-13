@@ -88,7 +88,7 @@ export const createMatchGroup = async (
   }
 
   const matchGroupId = uuidv4();
-  console.time("Create_Thid"+"_"+randomStr);
+  //console.time("Create_Thid"+"_"+randomStr);
   await insertMatchGroup({
     matchGroupId,
     matchGroupName: matchGroupConfig.matchGroupName,
@@ -98,10 +98,10 @@ export const createMatchGroup = async (
     createdBy: matchGroupConfig.ownerId,
     createdAt: new Date(),
   });
-  console.timeEnd("Create_Thid"+"_"+randomStr);
-  console.time("Create_Four"+"_"+randomStr);
+  //console.timeEnd("Create_Thid"+"_"+randomStr);
+  //console.time("Create_Four"+"_"+randomStr);
   const res = await getMatchGroupDetailByMatchGroupId(matchGroupId);
-  console.timeEnd("Create_Four"+"_"+randomStr);
+  //console.timeEnd("Create_Four"+"_"+randomStr);
   return res
 };
 
@@ -129,9 +129,9 @@ const isPassedMatchFilter = async (ownerId: string, candidateId: string) => {
 
   let random = Math.floor(Math.random() * 100000) + 1;
   var randomStr = random.toString()
-  console.time("Create_Other"+"_"+randomStr);
+  //console.time("Create_Other"+"_"+randomStr);
   const userIdsBeforeMatched = await getUserIdsBeforeMatched(ownerId);
-  console.timeEnd("Create_Other"+"_"+randomStr);
+  //console.timeEnd("Create_Other"+"_"+randomStr);
 
   return userIdsBeforeMatched.every(
     (userIdBeforeMatched) => userIdBeforeMatched !== candidateId

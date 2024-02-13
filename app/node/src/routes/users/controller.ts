@@ -149,7 +149,7 @@ usersRouter.get(
   ) => {
     let random = Math.floor(Math.random() * 10000) + 1;
     var randomStr = random.toString()
-    console.time("searchTotal"+randomStr);
+    //console.time("searchTotal"+randomStr);
     const keyword = req.query.q;
     if (typeof keyword !== "string") {
       if (!keyword) {

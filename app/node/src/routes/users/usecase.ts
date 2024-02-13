@@ -15,18 +15,22 @@ export const getUsersByKeyword = async (
   targets: Target[]
 ): Promise<SearchedUser[]> => {
   let users: SearchedUser[] = [];
+
+  let random = Math.floor(Math.random() * 100000) + 1;
+  var randomStr = random.toString()
+
+  const redis = require('redis');
+  const client = redis.createClient({
+    url: 'redis://my-redis:6379',
+  });
+  client.connect()
   for (const target of targets) {
     //const oldLen = users.length
-
     var keyStr =  "keywordUsers_" + target + "_" + keyword
-    const redis = require('redis');
-    const client = redis.createClient({
-      url: 'redis://my-redis:6379',
-    });
-    client.connect()
     const value = await client.get(keyStr);
     if(value == null)
     {
+      console.time("Keyword_"+target+"_"+randomStr);
       switch (target) {
       case "userName":
         users = users.concat(await getUsersByUserName(keyword));
@@ -55,15 +59,15 @@ export const getUsersByKeyword = async (
       }
       var jsonStr = JSON.stringify(users);
       await client.set(keyStr, jsonStr);
+      console.timeEnd("Keyword_"+target+"_"+randomStr);
     }
     else
     {
+      console.log("Keyword Hit");
       users = JSON.parse(value);
     }
-    client.disconnect()
-
-
     //console.log(`${users.length - oldLen} users found by ${target}`);
   }
+  client.disconnect()
   return users;
 };
