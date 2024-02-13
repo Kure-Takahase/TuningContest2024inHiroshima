@@ -260,7 +260,7 @@ export const getUsersByGoal = async (goal: string): Promise<string> => {
 
   let random = Math.floor(Math.random() * 100000) + 1;
   var randomStr = random.toString()
-  var keyStrGoal = "Goal_ALL"+randomStr
+  var keyStrGoal = "Goal_ALL_"+randomStr
   console.time("Goal_ALL"+randomStr);
 
 

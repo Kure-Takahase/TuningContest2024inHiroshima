@@ -78,9 +78,13 @@ export const getUsersByKeyword = async (
       case "goal":
         console.time("Keyword_Goal_"+target+ "_" + keyword+"_"+randomStr);
         //userSingle = await getUsersByGoal(keyword)
-        var goalKeyStr = await getUsersByGoal(keyword)
-        var goalJsonStr = await client.get(goalKeyStr);
-        userSingle = JSON.parse(goalJsonStr)
+        
+        //var goalKeyStr = await getUsersByGoal(keyword)
+        //var goalJsonStr = await client.get(goalKeyStr);
+        //userSingle = JSON.parse(goalJsonStr)
+
+        userSingle = await getUsersBySkillName(keyword)
+
         console.timeEnd("Keyword_Goal_"+target+ "_" + keyword+"_"+randomStr);
         console.time("Keyword_Concat_"+target+ "_" + keyword+"_"+randomStr);
         users = users.concat(userSingle)
